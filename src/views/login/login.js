@@ -42,7 +42,7 @@ export default function login() {
           autoComplete="off"
         >
           <Form.Item
-            label={<label style={{ color: "white" }}>账号</label>}
+            label={<label style={{ color: "white" }}>账号 </label>}
             name="userName"
             rules={[
               {
