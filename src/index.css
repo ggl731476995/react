@@ -13,4 +13,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.search_body{
+  width:100%;;
+  .search_header{
+    width:100%;
+    background-color: #eef2f9;
+    height:200px;
+    display:flex;
+    padding:20px
+  }
+}
 

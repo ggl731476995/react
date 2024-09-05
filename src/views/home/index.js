@@ -1,26 +1,35 @@
-import React, { useState } from 'react';
+
+import React, { Component,useState } from 'react'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  AppstoreOutlined, MailOutlined, SettingOutlined
+  AppstoreOutlined, MailOutlined, SettingOutlined,HomeFilled
 } from '@ant-design/icons'; // 图标
 import { Layout, Menu, Button, theme } from 'antd';
-import "./layout.scss";
-import Item from 'antd/es/list/Item';
+// Outlet 是react-router-dom 插件中的局部刷新
+import { useNavigate,Outlet } from "react-router-dom";
+import "../layout/layout.scss";
 
 const { Header, Sider, Content } = Layout;
 
-const clickSubMen = (e, key) => {
-  console.log(e,'clickSubMen')
-  console.log(key,'key')
-}
+
  
+export default function() {
+  const navigate = useNavigate();  // 导航跳转
 
-
-export default function () {
+  const clickSubMen = (e, key) => {
+    console.log(e, 'clickSubMen')
+    console.log(key, 'key')
+    if (e.key == 'home') {
+      navigate('/home');
+    }
+    if (e.key == 'myWork') {
+      navigate('/home/myWork');
+    }
+  }
   // 菜单项
   const items = [
     {
@@ -50,6 +59,30 @@ export default function () {
       ],
     },
   ];
+  // 左侧
+  const leftItems = [
+    {
+      key: 'home',
+      icon: <HomeFilled />,
+      label: '首页',
+    },
+    {
+      key: 'work',
+      icon: <VideoCameraOutlined />,
+      label: '工单管理',
+      children: [
+        {
+          key: 'myWork',
+          label: '我的工单',
+        },
+      ]
+    },
+    {
+      key: '3',
+      icon: <UploadOutlined />,
+      label: '订单管理',
+    },
+  ]
   // 侧边栏折叠状态
   const [collapsed, setCollapsed] = useState(false);
   return (
@@ -62,23 +95,7 @@ export default function () {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: '个人主页',
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: '工单管理',
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: '订单管理',
-            },
-          ]}
+          items={leftItems}
           onClick={clickSubMen}
         />
       </Sider>
@@ -98,9 +115,10 @@ export default function () {
           />
         </Header>
         <Content>
-          Content
+          <Outlet></Outlet>
         </Content>
       </Layout>
     </Layout>
   );
+  
 };

@@ -3,6 +3,7 @@ import "./Login.scss";
 import { Button, Form, Input,message } from "antd";
 import { useNavigate } from "react-router-dom";
 import useToken from "antd/es/theme/useToken";
+
 export default function login() {
   const [value, setMessage] = useState('');
   const [pas, sePas] = useState('');
@@ -14,7 +15,7 @@ export default function login() {
     if (value === 'admin' && pas !== '') {
       sessionStorage.setItem('loginToken','admin');
       message.success('登陆成功！');
-      navigate('/layout')
+      navigate('/home')
     } else {
       message.error('账号或密码有误！');
     }
